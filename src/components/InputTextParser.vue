@@ -7,9 +7,9 @@ type RegExpsForCardInfo = {
 }
 
 const RegExps : RegExpsForCardInfo = {
-  cardNumber: /МЕДИЦИНСКАЯ\sКАРТА\s№\s*(\d+\/С\d+)\s*СТАЦИОНАРНОГО БОЛЬНОГО /ims,
-  name: /1\.Фамилия, имя, отчество\s+((?:[а-яё]+\s){2}(?:[а-я]+)?)/is,
-  dateOfBirth: /\((\d{2}\.\d{2}\.\d{4})\)/i
+  cardNumber: /НАПРАВЛЕНИЕ\sОМС\s+НА\sПРИЖИЗНЕННОЕ\sПАТОЛОГО-АНАТОМИЧЕСКОЕ\sИССЛЕДОВАНИЕ\sБИОПСИЙНОГО\s\(ОПЕРАЦИОННОГО\)\sМАТЕРИАЛА\s+(\d+\/С\d+)(?=\s)/msi,
+  name: /2.\sФамилия,\sимя,\sотчество\s\(при\sналичии\)\sпациента\s+((?:[а-яё]+\s){2}(?:[а-я]+)?)(?=\s*3\.)/msi,
+  dateOfBirth: /4.\sДата рождения.\s+(\d+\.\d+\.\d+\s\(\d+лет\))(?=\s*5\.)/msi
 }
 
 function getCardFromInputText() {
@@ -26,6 +26,7 @@ function getCardFromInputText() {
 function infoMatcher(re: RegExp) {
   const matchInfo = inputText.value.match(re);
   if (matchInfo) {
+    console.log(matchInfo)
     return matchInfo[1];
   }
   return "";
@@ -39,7 +40,11 @@ watch(inputText, getCardFromInputText)
 <template>
   <div class="input-container">
     <h2>Вставьте данные о пациенте</h2>
-    <textarea v-model="inputText" class="text-input"></textarea>
+    <textarea v-model="inputText"
+              class="text-input"
+              placeholder="Вставьте текст из НАПРАВЛЕНИЯ НА ПРИЖИЗНЕННОЕ ПАТОЛОГО-АНАТОМИЧЕСКОЕ ИССЛЕДОВАНИЕ БИОПСИЙНОГО (ОПЕРАЦИОННОГО) МАТЕРИАЛА"
+              name="text-input">
+    </textarea>
   </div>
 </template>
 
@@ -49,8 +54,10 @@ watch(inputText, getCardFromInputText)
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: 1rem;
 }
 .text-input {
+  margin-top: 1rem;
   width: 100%;
   height: 10rem;
   resize: none;

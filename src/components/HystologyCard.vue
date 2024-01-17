@@ -24,6 +24,7 @@ const props = defineProps<BasicInfo & CardInfo>();
     border: 1px solid;
     padding: 0.5rem;
     width: 18rem;
+    height: 100%;
     line-height: 1.4rem;
   }
 

@@ -27,7 +27,7 @@ function addFromTemplate(event: Event) {
 <div class="container">
   <h2>Введите названия препаратов</h2>
   <form @submit.prevent="handleSubmit" class="form">
-    <input type="text" v-model="specimenInput" class="input">
+    <input type="text" v-model="specimenInput" class="input" name="specimen-input">
     <button type="submit">Добавить</button>
   </form>
 
@@ -53,6 +53,17 @@ function addFromTemplate(event: Event) {
 <style scoped>
 h2 {
   margin-bottom: 1rem;
+}
+button {
+  padding: 0.5rem;
+  border-radius: 100rem;
+  border: 0;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transition: background-color .4s ease-out 100ms;
+  background-color: #c3ffaa;
+}
+button:hover {
+  background-color: #208a01;
 }
 .container {
   display: flex;
