@@ -2,6 +2,9 @@
 
 import { store } from '@/store'
 import { ref } from 'vue'
+import localSpecimens from "@/data/Specimens";
+
+const specimens = localSpecimens;
 
 let specimenInput = ref("");
 let id = 0;
@@ -33,19 +36,7 @@ function addFromTemplate(event: Event) {
 
   <h2>Шаблоны</h2>
   <div class="container-templates">
-    <button @click="addFromTemplate">Соскоб эндометрия</button>
-    <button @click="addFromTemplate">Соскоб эндоцервикса</button>
-    <button @click="addFromTemplate">Биоптат эндометрия</button>
-    <button @click="addFromTemplate">Биоптат эндоцервикса</button>
-    <button @click="addFromTemplate">Капсула кисты левого яичника</button>
-    <button @click="addFromTemplate">Капсула кисты правого яичника</button>
-    <button @click="addFromTemplate">Эндометриоидный инфильтрат</button>
-    <button @click="addFromTemplate">Морцелированный миоматозный узел</button>
-    <button @click="addFromTemplate">Миоматозный узел</button>
-    <button @click="addFromTemplate">Матка с придатками</button>
-    <button @click="addFromTemplate">Матка с маточными трубами</button>
-    <button @click="addFromTemplate">Морцелированный миоматозный узел</button>
-    <button @click="addFromTemplate">Биоптат брюшины</button>
+    <button v-for="specimen in specimens" @click="addFromTemplate">{{ specimen }}</button>
   </div>
 </div>
 </template>
