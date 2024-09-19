@@ -1,16 +1,7 @@
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
-import { store } from '@/store'
-
-type RegExpsForCardInfo = {
-  [key in "cardNumber" | "name" | "dateOfBirth"]: RegExp
-}
-
-const RegExps : RegExpsForCardInfo = {
-  cardNumber: /НАПРАВЛЕНИЕ\sОМС\s+НА\sПРИЖИЗНЕННОЕ\sПАТОЛОГО-АНАТОМИЧЕСКОЕ\sИССЛЕДОВАНИЕ\sБИОПСИЙНОГО\s\(ОПЕРАЦИОННОГО\)\sМАТЕРИАЛА\s+(\d+\/С\d+)(?=\s)/msi,
-  name: /2.\sФамилия,\sимя,\sотчество\s\(при\sналичии\)\sпациента\s+((?:[а-яё]+\s){2}(?:[а-я]+)?)(?=\s*3\.)/msi,
-  dateOfBirth: /4.\sДата рождения.\s+(\d+\.\d+\.\d+\s\(\d+лет\))(?=\s*5\.)/msi
-}
+import {ref, watch} from 'vue'
+import {store} from '@/store'
+import {RegExps} from "@/data/RegExps";
 
 function getCardFromInputText() {
   counter.value++
@@ -26,7 +17,6 @@ function getCardFromInputText() {
 function infoMatcher(re: RegExp) {
   const matchInfo = inputText.value.match(re);
   if (matchInfo) {
-    console.log(matchInfo)
     return matchInfo[1];
   }
   return "";
